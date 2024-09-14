@@ -2,6 +2,8 @@ import pdfParse from 'pdf-parse/lib/pdf-parse';
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
 import { NextResponse, type NextRequest } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { CohereEmbeddings } from "@langchain/cohere"
+import { Chroma } from "@langchain/community/vectorstores/chroma";
 
 export async function POST(request: NextRequest) {
   const formData = await request.formData();
@@ -19,6 +21,7 @@ export async function POST(request: NextRequest) {
     const arrayBuffer = await file.arrayBuffer();
     // Convert ArrayBuffer to Buffer
     const buffer = Buffer.from(arrayBuffer);
+ 
 
     // Parse PDF
     const pdfData = await pdfParse(buffer);
@@ -67,7 +70,31 @@ export async function POST(request: NextRequest) {
     });
 
     // Create Chunk records associated with the File
-    const chunkData = chunks.map((chunkText, index) => ({
+    const embeddings = new CohereEmbeddings({
+      apiKey: process.env.COHERE_API_KEY,
+      model: "embed-english-v3.0",
+    });
+
+    const vectorStore = new Chroma(embeddings, {
+      collectionName: `${userId}_${classItem.id}`,
+      url: "http://localhost:8000", // Optional, will default to this value
+      collectionMetadata: {
+        "hnsw:space": "cosine",
+      }, 
+    });
+
+    const documents = chunks.map((chunk: string, index: number) => ({
+      pageContent: chunk,
+      metadata: {
+        source: `${uploadedFileName}`, // You can replace with actual source
+        chunkIndex: index, // Adding index for easier tracking
+      },
+    }));
+
+    const documentIds = chunks.map((_, index: number) => `${fileRecord.id}_${index + 1}`);
+
+
+    const chunkData = chunks.map((chunkText: string, index: number) => ({
       index: index,
       content: chunkText,
       fileId: fileRecord.id,
@@ -75,6 +102,10 @@ export async function POST(request: NextRequest) {
 
     await prisma.chunk.createMany({
       data: chunkData,
+    });
+
+    await vectorStore.addDocuments(documents, {
+      ids: documentIds,
     });
 
     return NextResponse.json({ message: 'File and chunks saved successfully' });
