@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id      String  @id @default(cuid()) // Clerk user ID
+  email   String?
+  classes Class[] // Relation to Class model (One-to-many)
+}
+
+model Class {
+  id          String  @id @default(cuid())
+  name        String
+  description String
+  userId      String  // Foreign key to the User model
+  user        User    @relation(fields: [userId], references: [id])
+  files       File[]  // Relation to File model (One-to-many)
+}
+
+model File {
+  id      String   @id @default(cuid())
+  classId String   // Foreign key to the Class model
+  class   Class    @relation(fields: [classId], references: [id])
+  name    String   // Name of the uploaded file
+  chunks  Chunk[]  // Relation to Chunk model (One-to-many)
+}
+
+model Chunk {
+  id     String @id @default(cuid())
+  fileId String // Foreign key to the File model
+  file   File   @relation(fields: [fileId], references: [id])
+  index  Int    // Order of the chunk in the file
+  content String // The chunk content
+}
