@@ -5,26 +5,26 @@ import { ChatOpenAI } from "@langchain/openai";
 import { PromptTemplate } from "@langchain/core/prompts";
 import { HttpResponseOutputParser } from "langchain/output_parsers";
 
+import { Chroma } from "@langchain/community/vectorstores/chroma";
+import { CohereEmbeddings } from "@langchain/cohere"; // Import CohereEmbeddings
+
 export const runtime = "edge";
 
 const formatMessage = (message: VercelChatMessage) => {
   return `${message.role}: ${message.content}`;
 };
 
-const TEMPLATE = `You are a very smart educator and tutor for university students. You have lot of knowledge about various subjects and topics that are taught in world's biggest university. So, you will answer the students question in the best way possible about any topic. All the information should be up to date. 
+const TEMPLATE = `You are a very knowledgeable tutor for university students. You are provided with specific information from PDFs uploaded by the user related to their course. You will answer the students' questions based solely on the information extracted from these PDFs. If you can't find the information from the PDF's, tell the students that no such content is covered in any of the PDF's.
 
 Current conversation:
 {chat_history}
 
+Context from uploaded PDFs:
+{context}
+
 User: {input}
 AI:`;
 
-/**
- * This handler initializes and calls a simple chain with a prompt,
- * chat model, and output parser. See the docs for more information:
- *
- * https://js.langchain.com/docs/guides/expression_language/cookbook#prompttemplate--llm--outputparser
- */
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -33,15 +33,6 @@ export async function POST(req: NextRequest) {
     const currentMessageContent = messages[messages.length - 1].content;
     const prompt = PromptTemplate.fromTemplate(TEMPLATE);
 
-    /**
-     * You can also try e.g.:
-     *
-     * import { ChatAnthropic } from "@langchain/anthropic";
-     * const model = new ChatAnthropic({});
-     *
-     * See a full list of supported models at:
-     * https://js.langchain.com/docs/modules/model_io/models/
-     */
     const model = new ChatOpenAI({
       temperature: 0.8,
       model: "gpt-3.5-turbo-0125",
@@ -51,18 +42,43 @@ export async function POST(req: NextRequest) {
      * Chat models stream message chunks rather than bytes, so this
      * output parser handles serialization and byte-encoding.
      */
+
+     // Initialize embedding model
+     const embeddings = new CohereEmbeddings({
+      apiKey: process.env.COHERE_API_KEY,
+      model: "embed-english-v3.0"
+    });
+
+    // Initialize the vector store for the user's course material
+    const userId = "user_id";  // Replace with actual userId
+    const courseId = "course_id"; // Replace with actual courseId
+    const vectorStore = await Chroma.fromExistingCollection(embeddings, {
+      collectionName: `${userId}_${courseId}`,
+    });
+
+    // Embed the user's question
+    const queryEmbedding = await embeddings.embedQuery(currentMessageContent);
+
+    // Search the vector store for relevant chunks
+    const searchResults = await vectorStore.similaritySearchVectorWithScore(queryEmbedding, 10);
+
+    // Extract the most relevant chunks to form the context
+    let context = searchResults
+      .filter(([document, score]) => score > 0.8)  // Filter based on relevance score
+      .map(([document]) => document.pageContent)
+      .join("\n\n");
+
+    if (context.length === 0) {
+      context = "No relevant material found in your uploaded documents.";
+    }
+
     const outputParser = new HttpResponseOutputParser();
 
-    /**
-     * Can also initialize as:
-     *
-     * import { RunnableSequence } from "@langchain/core/runnables";
-     * const chain = RunnableSequence.from([prompt, model, outputParser]);
-     */
     const chain = prompt.pipe(model).pipe(outputParser);
 
     const stream = await chain.stream({
       chat_history: formattedPreviousMessages.join("\n"),
+      context,
       input: currentMessageContent,
     });
 

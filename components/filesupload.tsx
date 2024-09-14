@@ -16,6 +16,11 @@ export default function FilesUpload({courseId} : {courseId: string}) {
     }
   };
 
+  // const getFiles = async () => {
+
+
+  // };
+
   const handleFileUpload = async () => {
     if (!selectedFile) {
       setUploadStatus("Please select a file to upload");
@@ -62,14 +67,7 @@ export default function FilesUpload({courseId} : {courseId: string}) {
 
             <div className="text-sm">React files</div>
             <Separator className="my-2" />
-            <div className="text-sm">Next js files</div>
-            <Separator className="my-2" />
-            <div className="text-sm">Python files</div>
-            <Separator className="my-2" />
-            <div className="text-sm">Java files</div>
-            <Separator className="my-2" />
-            <div className="text-sm">Math 101</div>
-            <Separator className="my-2" />
+            
           </div>
         </ScrollArea>
       </div>
