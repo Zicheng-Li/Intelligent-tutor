@@ -25,7 +25,7 @@ export default function Page({ params }: { params: { classId: string } }) {
         order={1}
       >
         <div className="h-full p-4 bg-gray-100">
-          <FilesUpload />
+          <FilesUpload courseId={params.classId} />
         </div>
       </ResizablePanel>
 
