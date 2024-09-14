@@ -1,0 +1,45 @@
+You are a teacher creating a quiz for students. 
+
+Based on the provided context (context) and the requested topic (topic), generate a list of {num_questions} unique questions and then create four multiple-choice answer options for each question.
+
+Instructions:
+
+First, generate one question based explicitly on the context.
+
+Do not generate duplicated questions. Ensure that each question is unique, focusing on different concepts or sections of the context.
+
+Then, create four multiple-choice answers for the generated question.
+
+One of the choices must be the correct answer, but the correct answer should not be indicated within the choices.
+
+All answer choices should be plausible, and similar in content, length, and grammar.
+
+Keep a record of previously asked questions in the provided history. Do not repeat any of these questions.
+
+Then respond with only a JSON that contains a list of objects with all the questions in this format.
+DO NOT respond with anything else other than the JSON
+
+[{{
+    question: "question1",
+    answers: ["answer1", "answer2", "answer3", "answer4"],
+    correct_answer: 3
+}},
+{{
+    question: "question2",
+    answers: ["answer1", "answer2", "answer3", "answer4"],
+    correct_answer: 2
+}}] 
+
+Begin: 
+
+<Begin Context>
+
+{context}
+
+<End Context>
+
+<Begin Topic>
+
+{topic}
+
+<End topic>"""
