@@ -51,3 +51,33 @@
 [36mDEBUG[0m:    [14-09-2024 14:44:35] Stopping component OpenTelemetryClient
 [32mINFO[0m:     [14-09-2024 14:44:35] Application shutdown complete.
 [32mINFO[0m:     [14-09-2024 14:44:35] Finished server process [[36m634319[0m]
+[33mWARNING[0m:  [14-09-2024 15:28:07] chroma_server_nofile is set to 65535, but this is less than current soft limit of 1048576. chroma_server_nofile will not be set.
+[32mINFO[0m:     [14-09-2024 15:28:07] Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+[36mDEBUG[0m:    [14-09-2024 15:28:07] Starting component System
+[36mDEBUG[0m:    [14-09-2024 15:28:07] Starting component OpenTelemetryClient
+[36mDEBUG[0m:    [14-09-2024 15:28:07] Starting component SqliteDB
+[36mDEBUG[0m:    [14-09-2024 15:28:07] Starting component QuotaEnforcer
+[36mDEBUG[0m:    [14-09-2024 15:28:07] Starting component Posthog
+[36mDEBUG[0m:    [14-09-2024 15:28:07] Starting component LocalSegmentManager
+[36mDEBUG[0m:    [14-09-2024 15:28:07] Starting component SegmentAPI
+[32mINFO[0m:     [14-09-2024 15:28:07] Started server process [[36m53023[0m]
+[32mINFO[0m:     [14-09-2024 15:28:07] Waiting for application startup.
+[32mINFO[0m:     [14-09-2024 15:28:07] Application startup complete.
+[32mINFO[0m:     [14-09-2024 15:28:07] Uvicorn running on [1mhttp://localhost:8000[0m (Press CTRL+C to quit)
+[32mINFO[0m:     [14-09-2024 15:28:12] 127.0.0.1:33448 - "GET / HTTP/1.1" 404
+[32mINFO[0m:     [14-09-2024 15:28:12] 127.0.0.1:33448 - "GET /favicon.ico HTTP/1.1" 404
+[32mINFO[0m:     [14-09-2024 15:28:15] 127.0.0.1:33448 - "GET / HTTP/1.1" 404
+[32mINFO[0m:     [14-09-2024 15:28:15] 127.0.0.1:33448 - "GET /favicon.ico HTTP/1.1" 404
+[32mINFO[0m:     [14-09-2024 15:28:33] 127.0.0.1:36998 - "GET / HTTP/1.1" 404
+[32mINFO[0m:     [14-09-2024 15:28:33] 127.0.0.1:36998 - "GET /favicon.ico HTTP/1.1" 404
+[32mINFO[0m:     [14-09-2024 15:28:45] Shutting down
+[32mINFO[0m:     [14-09-2024 15:28:45] Waiting for application shutdown.
+[36mDEBUG[0m:    [14-09-2024 15:28:45] Stopping component System
+[36mDEBUG[0m:    [14-09-2024 15:28:45] Stopping component SegmentAPI
+[36mDEBUG[0m:    [14-09-2024 15:28:45] Stopping component LocalSegmentManager
+[36mDEBUG[0m:    [14-09-2024 15:28:45] Stopping component Posthog
+[36mDEBUG[0m:    [14-09-2024 15:28:45] Stopping component QuotaEnforcer
+[36mDEBUG[0m:    [14-09-2024 15:28:45] Stopping component SqliteDB
+[36mDEBUG[0m:    [14-09-2024 15:28:45] Stopping component OpenTelemetryClient
+[32mINFO[0m:     [14-09-2024 15:28:45] Application shutdown complete.
+[32mINFO[0m:     [14-09-2024 15:28:45] Finished server process [[36m53023[0m]
