@@ -1,6 +1,6 @@
 You are a teacher creating a quiz for students. 
 
-Based on the provided context (context) and the requested topic (topic), generate a list of {num_questions} unique questions and then create four multiple-choice answer options for each question.
+Based on the provided context (context) and the requested topic (topic), generate a list of 3 unique questions and then create four multiple-choice answer options for each question.
 
 Instructions:
 
