@@ -29,32 +29,33 @@ load_dotenv()
 
 # Load, chunk and index the contents of the blog.
 
-
-loader = PyPDFLoader("network.pdf")
-docs = loader.load()
+def load_pdf(pdf_name: str):
+    loader = PyPDFLoader(pdf_name)
+    docs = loader.load()
     
+    return docs
 
-
-
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-splits = text_splitter.split_documents(docs)
-
+def split_files(docs):
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+    splits = text_splitter.split_documents(docs)
+    return splits
 
 llm = ChatCohere(model="command-r-plus")
 # llm = ChatGroq(model="llama3-70b-8192")
 
 
-vectorstore = Chroma.from_documents(documents=splits, embedding=CohereEmbeddings(model="embed-english-v3.0"))
+def vector_db_store(splits):
+    vectorstore = Chroma.from_documents(documents=splits, embedding=CohereEmbeddings(model="embed-english-v3.0"))
+    return vectorstore
 
-
-
-# Retrieve and generate using the relevant snippets of the blog.
-retriever = vectorstore.as_retriever(
-    search_type="similarity",
-    search_kwargs={"k": 5}
-)
+def retrieve_from_vector_db(vectorstore):
+    # Retrieve and generate using the relevant snippets of the blog.
+    retriever = vectorstore.as_retriever(
+        search_type="similarity",
+        search_kwargs={"k": 5}
+    )
     
-
+    return retriever
 
 
 # prompt = hub.pull("rlm/rag-prompt")
@@ -69,29 +70,28 @@ topic = "Adjacency matricies and their powers."
 
 prompt = ChatPromptTemplate.from_template(template)
 
-print(template)
+
+
+docs = load_pdf("network.pdf")
+print("docs loaded")
+splits = split_files(docs)
+print("docs split")
+vectorstore = vector_db_store(splits)
+print("vectors loaded")
+retriever = retrieve_from_vector_db(vectorstore)
+print("info retrieved")
+print("============================================")
+
+def format_docs(docs):
+    return "\n\n".join(doc.page_content for doc in docs)
 
 rag_chain = (
-      prompt
+    {"context": retriever | format_docs, "topic" : RunnablePassthrough()}
+    | prompt
     | llm
     | StrOutputParser()
 )
 
-# docs = load_pdf("network.pdf")
-# print("docs loaded")
-# splits = split_files(docs)
-# print("docs split")
-# vectorstore = vector_db_store(splits)
-# print("vectors loaded")
-# retriever = retrieve_from_vector_db(vectorstore)
-# print("info retrieved")
-print("============================================")
-
-def format_docs(docs):
-    print("\n\n".join(doc.page_content for doc in docs))
-
-
-
-topic = "Dynamics and mechanics"
+topic = "Adjacency matricies and their powers"
 num_questions = 3
-print(rag_chain.invoke({"context": retriever | format_docs, "num_questions" : num_questions, "topic" : topic}))
+print(rag_chain.invoke(topic))
