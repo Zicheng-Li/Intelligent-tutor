@@ -108,7 +108,7 @@ export default function QuizPage() {
           return "bg-green-500";
         }
         // Incorrect selected answer, red background for the wrong selected answer
-        if (selectedAnswer === answerIndex && selectedAnswerText !== correctAnswerText) {
+        if (selectedAnswerText !== correctAnswerText) {
           return "bg-red-500";
         }
       }
@@ -164,7 +164,7 @@ export default function QuizPage() {
                                 key={answerIndex}
                                 value={answerIndex.toString()}
                                 aria-label={`Answer ${answerIndex}`}
-                                className={`border border-gray-300 rounded p-4 w-full text-center hover:bg-gray-100 ${getAnswerBackgroundColor(
+                                className={`border border-black rounded p-4 w-full text-center  focus:bg-sky-300 ${getAnswerBackgroundColor(
                                   index,
                                   answerIndex
                                 )}`}
