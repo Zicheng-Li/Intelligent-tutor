@@ -20,6 +20,7 @@ model Class {
   userId      String  // Foreign key to the User model
   user        User    @relation(fields: [userId], references: [id])
   files       File[]  // Relation to File model (One-to-many)
+  quizes      Quiz[]
 }
 
 model File {
@@ -36,4 +37,30 @@ model Chunk {
   file   File   @relation(fields: [fileId], references: [id])
   index  Int    // Order of the chunk in the file
   content String // The chunk content
+}
+
+model Quiz {
+  id               String         @id @default(cuid())
+  displayName      String
+  textForGeneration String
+  classId          String         // Foreign key to the Class model
+  class            Class          @relation(fields: [classId], references: [id])
+  questions        QuizQuestion[] // Relation to QuizQuestion model (One-to-many)
+}
+
+model QuizQuestion {
+  id          String        @id @default(cuid())
+  quizId      String        // Foreign key to the Quiz model
+  quiz        Quiz          @relation(fields: [quizId], references: [id])
+  question    String
+  answers     Answer[]      // Relation to Answer model (One-to-many)
+  correctAnswer Int
+}
+
+
+model Answer {
+  id           String        @id @default(cuid())
+  questionId   String        // Foreign key to the QuizQuestion model
+  question     QuizQuestion  @relation(fields: [questionId], references: [id])
+  answer       String        // The string value of the answer
 }
