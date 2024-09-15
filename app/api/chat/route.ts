@@ -7,8 +7,22 @@ import { HttpResponseOutputParser } from "langchain/output_parsers";
 
 import { Chroma } from "@langchain/community/vectorstores/chroma";
 import { CohereEmbeddings } from "@langchain/cohere"; // Import CohereEmbeddings
+import { prisma } from "@/lib/prisma";
+import { auth } from '@clerk/nextjs/server'
 
-export const runtime = "edge";
+
+async function getClassId(userId: string, name: string) {
+  const classData = await prisma.class.findFirst({
+    where: {
+      userId: userId,
+      name: name,
+    },
+    select: {
+      id: true,
+    },
+  });
+  return classData ? classData.id : null;
+}
 
 const formatMessage = (message: VercelChatMessage) => {
   return `${message.role}: ${message.content}`;
@@ -28,11 +42,39 @@ AI:`;
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
+
+    const referer = req.headers.get('referer');
+    const origin = req.headers.get('origin');
+
+    console.log('Referer:', referer); // Logs the full URL of the page that made the request
+    console.log('Origin:', origin);   // Logs the origin of the request (protocol, domain, port)
+    let route = null
+    if (referer) {
+      // Parse the referer URL to extract the path (route)
+      const url = new URL(referer);
+      route = url.pathname; // This will give you the route (e.g., "/123" or "/page/abc")
+
+      if (route.startsWith('/')) {
+        route = route.slice(1);
+      }
+      console.log('Route:', route);
+    } else {
+      console.log('No Referer header found');
+    }
+
+    
+
+    if (!body) {
+      return NextResponse.json({ error: "No body received" }, { status: 400 });
+    }
     const messages = body.messages ?? [];
+    const courseName = route
     const formattedPreviousMessages = messages.slice(0, -1).map(formatMessage);
     const currentMessageContent = messages[messages.length - 1].content;
     const prompt = PromptTemplate.fromTemplate(TEMPLATE);
-
+    const {userId} = auth()
+    
+    
     const model = new ChatOpenAI({
       temperature: 0.8,
       model: "gpt-3.5-turbo-0125",
@@ -50,10 +92,18 @@ export async function POST(req: NextRequest) {
     });
 
     // Initialize the vector store for the user's course material
-    const userId = "user_2lu5aqxzH8dTqjm1sJ0oPSTd3iN";  // Replace with actual userId
-    const courseId = "cm12559sz0001komzb9ke7ymo"; // Replace with actual courseId
+    
+    const classId  = await getClassId(userId, courseName as string)
+
+    const collectionName = `${userId}_${classId}`
+
+    console.log("userId:", userId);
+    console.log("classId:", classId);
+    console.log("coursename: ", courseName)
+    console.log("collectionName:", collectionName);
+ 
     const vectorStore = await Chroma.fromExistingCollection(embeddings, {
-      collectionName: `${userId}_${courseId}`,
+      collectionName: collectionName,
     });
 
     // Embed the user's question
@@ -86,6 +136,7 @@ export async function POST(req: NextRequest) {
 
     return new StreamingTextResponse(stream);
   } catch (e: any) {
+    console.error('Error in /api/chat:', e); // Log full error object
     return NextResponse.json({ error: e.message }, { status: e.status ?? 500 });
   }
 }

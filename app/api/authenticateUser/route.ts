@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma'; // Adjust the path based on your project structure
+import { auth } from '@clerk/nextjs/server'
 
 export async function POST(req: NextRequest) {
   try {
-    const { userId, email } = await req.json();
+    const { email } = await req.json();
+    const { userId } = auth()
 
     // If userId is not present, the user is not authenticated
     if (!userId) {
