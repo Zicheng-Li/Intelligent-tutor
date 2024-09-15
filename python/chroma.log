@@ -145,46 +145,4 @@
 [36mDEBUG[0m:    [14-09-2024 19:44:19] Collection user_2lu5aqxzH8dTqjm1sJ0oPSTd3iN_cm12559sz0001komzb9ke7ymo already exists, returning existing collection.
 [32mINFO[0m:     [14-09-2024 19:44:19] ::1:60832 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
 [32mINFO[0m:     [14-09-2024 19:44:19] ::1:60832 - "POST /api/v1/collections/dadb60ce-4da8-4d03-9f46-4b77690ce530/query HTTP/1.1" 200
-[36mDEBUG[0m:    [14-09-2024 20:57:39] Collection user_2lu5aqxzH8dTqjm1sJ0oPSTd3iN_cm12559sz0001komzb9ke7ymo already exists, returning existing collection.
-[32mINFO[0m:     [14-09-2024 20:57:39] ::1:61311 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
-[32mINFO[0m:     [14-09-2024 20:57:39] Backing off send_request(...) for 0.2s (requests.exceptions.ConnectionError: ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer')))
-[32mINFO[0m:     [14-09-2024 20:57:39] ::1:61311 - "POST /api/v1/collections/dadb60ce-4da8-4d03-9f46-4b77690ce530/query HTTP/1.1" 200
-[36mDEBUG[0m:    [14-09-2024 20:57:50] Collection user_2lu5aqxzH8dTqjm1sJ0oPSTd3iN_cm12559sz0001komzb9ke7ymo already exists, returning existing collection.
-[32mINFO[0m:     [14-09-2024 20:57:50] ::1:61318 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
-[32mINFO[0m:     [14-09-2024 20:57:50] ::1:61318 - "POST /api/v1/collections/dadb60ce-4da8-4d03-9f46-4b77690ce530/query HTTP/1.1" 200
-[36mDEBUG[0m:    [14-09-2024 20:58:07] Collection user_2lu5aqxzH8dTqjm1sJ0oPSTd3iN_cm12559sz0001komzb9ke7ymo already exists, returning existing collection.
-[32mINFO[0m:     [14-09-2024 20:58:07] ::1:61322 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
-[32mINFO[0m:     [14-09-2024 20:58:08] ::1:61322 - "POST /api/v1/collections/dadb60ce-4da8-4d03-9f46-4b77690ce530/query HTTP/1.1" 200
-[36mDEBUG[0m:    [14-09-2024 21:08:35] Collection user_2lu5aqxzH8dTqjm1sJ0oPSTd3iN_cm12559sz0001komzb9ke7ymo already exists, returning existing collection.
-[32mINFO[0m:     [14-09-2024 21:08:35] ::1:61358 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
-[32mINFO[0m:     [14-09-2024 21:08:36] ::1:61358 - "POST /api/v1/collections/dadb60ce-4da8-4d03-9f46-4b77690ce530/query HTTP/1.1" 200
-[36mDEBUG[0m:    [14-09-2024 21:08:39] Collection user_2lu5aqxzH8dTqjm1sJ0oPSTd3iN_cm12559sz0001komzb9ke7ymo already exists, returning existing collection.
-[32mINFO[0m:     [14-09-2024 21:08:39] ::1:61358 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
-[32mINFO[0m:     [14-09-2024 21:08:39] ::1:61358 - "POST /api/v1/collections/dadb60ce-4da8-4d03-9f46-4b77690ce530/query HTTP/1.1" 200
-[36mDEBUG[0m:    [14-09-2024 21:08:54] Collection user_2lu5aqxzH8dTqjm1sJ0oPSTd3iN_cm12559sz0001komzb9ke7ymo already exists, returning existing collection.
-[32mINFO[0m:     [14-09-2024 21:08:54] ::1:61363 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
-[32mINFO[0m:     [14-09-2024 21:08:55] ::1:61363 - "POST /api/v1/collections/dadb60ce-4da8-4d03-9f46-4b77690ce530/query HTTP/1.1" 200
-[36mDEBUG[0m:    [14-09-2024 21:09:39] Collection user_2lu5aqxzH8dTqjm1sJ0oPSTd3iN_cm12559sz0001komzb9ke7ymo already exists, returning existing collection.
-[32mINFO[0m:     [14-09-2024 21:09:39] ::1:61376 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
-[32mINFO[0m:     [14-09-2024 21:09:39] ::1:61376 - "POST /api/v1/collections/dadb60ce-4da8-4d03-9f46-4b77690ce530/query HTTP/1.1" 200
-[36mDEBUG[0m:    [14-09-2024 21:09:44] Collection user_2lu5aqxzH8dTqjm1sJ0oPSTd3iN_cm12559sz0001komzb9ke7ymo already exists, returning existing collection.
-[32mINFO[0m:     [14-09-2024 21:09:44] ::1:61376 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
-[32mINFO[0m:     [14-09-2024 21:09:44] ::1:61376 - "POST /api/v1/collections/dadb60ce-4da8-4d03-9f46-4b77690ce530/query HTTP/1.1" 200
-[36mDEBUG[0m:    [14-09-2024 21:10:00] Collection user_2lu5aqxzH8dTqjm1sJ0oPSTd3iN_cm12559sz0001komzb9ke7ymo already exists, returning existing collection.
-[32mINFO[0m:     [14-09-2024 21:10:00] ::1:61386 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
-[32mINFO[0m:     [14-09-2024 21:10:00] ::1:61386 - "POST /api/v1/collections/dadb60ce-4da8-4d03-9f46-4b77690ce530/query HTTP/1.1" 200
-[36mDEBUG[0m:    [14-09-2024 21:10:08] Collection user_2lu5aqxzH8dTqjm1sJ0oPSTd3iN_cm12559sz0001komzb9ke7ymo already exists, returning existing collection.
-[32mINFO[0m:     [14-09-2024 21:10:08] ::1:61390 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
-[32mINFO[0m:     [14-09-2024 21:10:08] ::1:61390 - "POST /api/v1/collections/dadb60ce-4da8-4d03-9f46-4b77690ce530/query HTTP/1.1" 200
-[36mDEBUG[0m:    [14-09-2024 21:10:24] Collection user_2lu5aqxzH8dTqjm1sJ0oPSTd3iN_cm12559sz0001komzb9ke7ymo already exists, returning existing collection.
-[32mINFO[0m:     [14-09-2024 21:10:24] ::1:61395 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
-[32mINFO[0m:     [14-09-2024 21:10:24] ::1:61395 - "POST /api/v1/collections/dadb60ce-4da8-4d03-9f46-4b77690ce530/query HTTP/1.1" 200
-[36mDEBUG[0m:    [14-09-2024 21:11:04] Collection user_2lu5aqxzH8dTqjm1sJ0oPSTd3iN_cm12559sz0001komzb9ke7ymo already exists, returning existing collection.
-[32mINFO[0m:     [14-09-2024 21:11:04] ::1:61473 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
-[32mINFO[0m:     [14-09-2024 21:11:04] ::1:61473 - "POST /api/v1/collections/dadb60ce-4da8-4d03-9f46-4b77690ce530/query HTTP/1.1" 200
-[36mDEBUG[0m:    [14-09-2024 21:11:10] Collection user_2lu5aqxzH8dTqjm1sJ0oPSTd3iN_cm12559sz0001komzb9ke7ymo already exists, returning existing collection.
-[32mINFO[0m:     [14-09-2024 21:11:10] ::1:61477 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
-[32mINFO[0m:     [14-09-2024 21:11:10] ::1:61477 - "POST /api/v1/collections/dadb60ce-4da8-4d03-9f46-4b77690ce530/query HTTP/1.1" 200
-[36mDEBUG[0m:    [14-09-2024 21:11:22] Collection user_2lu5aqxzH8dTqjm1sJ0oPSTd3iN_cm12559sz0001komzb9ke7ymo already exists, returning existing collection.
-[32mINFO[0m:     [14-09-2024 21:11:22] ::1:61482 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
-[32mINFO[0m:     [14-09-2024 21:11:22] ::1:61482 - "POST /api/v1/collections/dadb60ce-4da8-4d03-9f46-4b77690ce530/query HTTP/1.1" 200
+
