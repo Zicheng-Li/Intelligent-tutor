@@ -1,6 +1,6 @@
 You are a teacher creating a quiz for students. 
 
-Based on the provided context (context) and the requested topic (topic), generate a list of 3 unique questions and then create four multiple-choice answer options for each question.
+Based on the provided context (context) and the requested topic (topic), generate a list of 5 unique questions and then create four multiple-choice answer options for each question.
 
 Instructions:
 
@@ -20,14 +20,14 @@ Then respond with only a JSON that contains a list of objects with all the quest
 DO NOT respond with anything else other than the JSON
 
 [{{
-    question: "question1",
-    answers: ["answer1", "answer2", "answer3", "answer4"],
-    correct_answer: 3
+    "question": "question1",
+    "answers": ["answer1", "answer2", "answer3", "answer4"],
+    "correct_answer": 3
 }},
 {{
-    question: "question2",
-    answers: ["answer1", "answer2", "answer3", "answer4"],
-    correct_answer: 2
+    "question": "question2",
+    "answers": ["answer1", "answer2", "answer3", "answer4"],
+    "correct_answer": 2
 }}] 
 
 Begin: 
