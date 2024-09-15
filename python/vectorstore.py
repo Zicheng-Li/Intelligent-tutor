@@ -9,7 +9,7 @@ from langchain_groq import ChatGroq
 from langchain_core.output_parsers import JsonOutputParser
 import chromadb
 
-def generate_quiz(topic):
+def generate_quiz(topic, userId, classId):
     # Load environment variables from .env file
     load_dotenv()
 
@@ -19,7 +19,7 @@ def generate_quiz(topic):
 
     vectorstore = Chroma(  
         client=persistent_client,
-        collection_name="user_2lu5aqxzH8dTqjm1sJ0oPSTd3iN_cm12559sz0001komzb9ke7ymo",
+        collection_name= userId + "_" + classId,
         embedding_function=CohereEmbeddings(model="embed-english-v3.0"),
     )
 

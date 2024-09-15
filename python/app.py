@@ -17,7 +17,7 @@ def get_questions():
         # Check if the 'topic' key is in the request
         if 'topic' in data:
             # Here we're ignoring the topic and always returning the same hardcoded response
-            response = generate_quiz(data['topic'])
+            response = generate_quiz(data['topic'], data['userId'], data['classId'])
             print(jsonify(response))
             return jsonify(response), 200
         else:
