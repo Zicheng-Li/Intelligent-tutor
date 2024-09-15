@@ -1,46 +1,52 @@
-// app/api/get-class-files/route.ts
+// File: app/api/get-class-files/route.ts
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+
+// Reuse the logic from getClassId
+async function getClassId(userId: string, name: string) {
+  const classData = await prisma.class.findFirst({
+    where: {
+      userId: userId,
+      name: name,
+    },
+    select: {
+      id: true,
+    },
+  });
+  return classData ? classData.id : null;
+}
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { classId, userId } = body;
+    const { userId, courseName } = body;
 
     // Validate input
-    if (!classId || !userId) {
+    if (!courseName || !userId) {
       return NextResponse.json(
-        { message: 'Missing classId or userId' },
+        { message: 'Missing courseName or userId' },
         { status: 400 }
       );
     }
 
-    // Verify that the class exists and belongs to the user
-    const classItem = await prisma.class.findUnique({
-      where: { id: classId },
-    });
+    // Call the helper function to get the class ID
+    const classId = await getClassId(userId, courseName);
 
-    if (!classItem) {
+    // Verify that the class exists
+    if (!classId) {
       return NextResponse.json(
         { message: 'Class not found' },
         { status: 404 }
       );
     }
 
-    if (classItem.userId !== userId) {
-      return NextResponse.json(
-        { message: 'Unauthorized access to this class' },
-        { status: 403 }
-      );
-    }
-
     // Fetch files associated with the class
     const files = await prisma.file.findMany({
       where: { classId: classId },
-      select: { id: true, name: true },
+      select: { name: true },
     });
 
-    return NextResponse.json({ files });
+    return NextResponse.json({ files }, { status: 200 });
   } catch (error) {
     console.error('Error fetching class files:', error);
     return NextResponse.json(
