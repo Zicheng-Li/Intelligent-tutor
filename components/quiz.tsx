@@ -2,7 +2,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import {Button} from "@/components/ui/button";
+import QuizPage from "./quziPage";
 
 export default function Quiz() {
     return (
@@ -32,7 +32,7 @@ export default function Quiz() {
         <div className="grid w-full max-w-sm items-center gap-4 mb-9">
           <Label htmlFor="picture">Generate a new quiz</Label>
           <Textarea placeholder="What topic would you like your quiz based on?" className="w-full" />
-          <Button variant="outline">Generate Quiz</Button>
+          <QuizPage />
 
           
         </div>
