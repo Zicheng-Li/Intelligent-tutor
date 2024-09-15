@@ -1,3 +1,5 @@
+"use client";
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
@@ -9,6 +11,11 @@ import {
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Button } from "@/components/ui/button"
 export default function QuizPage() {
+    const [selected, setSelected] = useState<string | null>(null);
+    const handleCheckAnswer = () => {
+    // Your logic here
+
+    };
   return (
     <Carousel className="w-full max-w-[600px] mx-auto">
       <CarouselContent>

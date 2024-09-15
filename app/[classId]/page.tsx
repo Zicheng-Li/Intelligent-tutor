@@ -25,7 +25,7 @@ export default function Page({ params }: { params: { classId: string } }) {
         order={1}
       >
         <div className="h-full p-4 bg-gray-100">
-          <FilesUpload />
+          <FilesUpload courseId={params.classId} />
         </div>
       </ResizablePanel>
 
@@ -36,14 +36,14 @@ export default function Page({ params }: { params: { classId: string } }) {
           <ResizablePanel defaultSize={64} order={1}>
             <div className="h-full bg-white shadow-lg">
               <div className="p-4  bg-gray-100 overflow-auto h-full">
-              {/* <ChatWindow
+              <ChatWindow
               endpoint="api/chat"
               emoji="👨‍🏫"
               titleText="Your own Intelligent Tutor"
               placeholder="Type your question here..."
               emptyStateComponent={InfoCard}
-            /> */}
-                <QuizPage />
+            />
+                {/* <QuizPage /> */}
               </div>
             </div>
           </ResizablePanel>
