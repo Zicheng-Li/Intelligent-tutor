@@ -1,50 +1,59 @@
 "use client";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { useUser } from "@clerk/nextjs";
-export default function ({courseId} : {courseId: string}) {
+
+export default function ({ courseId }: { courseId: string }) {
   const { user } = useUser();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploadStatus, setUploadStatus] = useState<string>("");
   const [getFilesStatus, setGetFilesStatus] = useState<string>("");
+  const [files, setFiles] = useState<{ id: string; name: string }[]>([]); // State to hold fetched files
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       setSelectedFile(event.target.files[0]);
     }
   };
 
-  let Files=[];
+  // Fetch the files when the component mounts
+  useEffect(() => {
+    if (courseId && user?.id) {
+      getFiles();
+    }
+  }, [courseId, user?.id]);
 
   const getFiles = async () => {
-    const formData = new FormData();
     if (!user || !user.id) {
       setGetFilesStatus("User information is missing");
       return;
     }
-    formData.append("classId", courseId);
-    formData.append("userId", user.id);
 
-    try{
-      const response = await fetch("/api/get-class-files", {
+    try {
+      const response = await fetch("/api/getClassFiles", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: user.id,
+          courseName: courseId, // Assuming courseId is actually the course name
+        }),
       });
 
       if (response.ok) {
         const data = await response.json();
         console.log(data);
-        Files=data;
-        setGetFilesStatus("Files");
-
+        setFiles(data.files); // Store the files in state
+        setGetFilesStatus("Files fetched successfully");
       } else {
         setGetFilesStatus("Failed to fetch files");
       }
-    }
-    catch (error) {
+    } catch (error) {
       if (error instanceof Error) {
         setGetFilesStatus("Failed to fetch files: " + error.message);
       } else {
@@ -63,6 +72,7 @@ export default function ({courseId} : {courseId: string}) {
       setUploadStatus("User information is missing");
       return;
     }
+
     const formData = new FormData();
     formData.append("pdf", selectedFile);
     formData.append("courseCode", courseId);
@@ -76,30 +86,43 @@ export default function ({courseId} : {courseId: string}) {
       });
 
       if (response.ok) {
-        setUploadStatus("File upload successfully.");
+        setUploadStatus("File uploaded successfully.");
+        getFiles(); // Refresh the files after a successful upload
       } else {
         setUploadStatus("File upload failed.");
       }
     } catch (error) {
       if (error instanceof Error) {
-        setUploadStatus("File upload failed :" + error.message);
+        setUploadStatus("File upload failed: " + error.message);
       } else {
-        setUploadStatus("File upload failed: unkonwn error");
+        setUploadStatus("File upload failed: unknown error");
       }
     }
   };
+
   return (
     <div className="flex flex-col h-full p-4 gap-3 pt-6 justify-between">
       <div className="flex flex-col gap-5">
         <p className="text-2xl font-medium">Uploaded Files</p>
 
-        <ScrollArea className="w-full  rounded-md border">
+        <ScrollArea className="w-full rounded-md border">
           <div className="p-4">
-            {getFilesStatus && <h4 className="mb-4 text-sm font-medium leading-none">{getFilesStatus}</h4>}
+            {getFilesStatus && (
+              <h4 className="mb-4 text-sm font-medium leading-none">{getFilesStatus}</h4>
+            )}
 
-            <div className="text-sm">React files</div>
+            {/* Display files dynamically */}
+            {files.length > 0 ? (
+              files.map((file) => (
+                <div key={file.id} className="text-sm mb-2">
+                  {file.name}
+                </div>
+              ))
+            ) : (
+              <p>No files uploaded yet.</p>
+            )}
+
             <Separator className="my-2" />
-            
           </div>
         </ScrollArea>
       </div>
