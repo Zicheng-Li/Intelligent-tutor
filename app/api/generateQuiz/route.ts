@@ -33,11 +33,13 @@ async function fetchQuestions(topic: string, userId: string, classId: string) {
 export async function POST(req: NextRequest) {
   try {
     const { courseCode, textForGeneration } = await req.json();
+    console.log("Backend" + courseCode + textForGeneration)
     const { userId } = auth()
+    console.log("Backend"+userId)
     // Find the class by courseCode
-    const classObj = await prisma.class.findUnique({
+    const classObj = await prisma.class.findFirst({
       where: {
-        code: courseCode,
+        name: courseCode,
         userId: userId
       },
     });
