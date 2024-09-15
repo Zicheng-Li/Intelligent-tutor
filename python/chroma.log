@@ -266,3 +266,6 @@
 [36mDEBUG[0m:    [15-09-2024 06:57:26] Collection user_2lu5aqxzH8dTqjm1sJ0oPSTd3iN_cm13gorm3007lbag9z6olyv5f already exists, returning existing collection.
 [32mINFO[0m:     [15-09-2024 06:57:26] ::1:57969 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
 [32mINFO[0m:     [15-09-2024 06:57:26] ::1:57969 - "POST /api/v1/collections/06cc2761-165e-4f68-9159-20c491b2b882/query HTTP/1.1" 200
+[36mDEBUG[0m:    [15-09-2024 07:15:53] Collection user_2lu5aqxzH8dTqjm1sJ0oPSTd3iN_cm13gorm3007lbag9z6olyv5f already exists, returning existing collection.
+[32mINFO[0m:     [15-09-2024 07:15:53] ::1:58268 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [15-09-2024 07:15:53] ::1:58269 - "POST /api/v1/collections/06cc2761-165e-4f68-9159-20c491b2b882/upsert HTTP/1.1" 200
