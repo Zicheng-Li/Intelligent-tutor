@@ -39,3 +39,5 @@ next-env.d.ts
 # python environment files
 env/
 myenv/
+
+chroma.log
