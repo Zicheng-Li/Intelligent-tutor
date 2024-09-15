@@ -54,7 +54,7 @@ model QuizQuestion {
   quiz        Quiz          @relation(fields: [quizId], references: [id])
   question    String
   answers     Answer[]      // Relation to Answer model (One-to-many)
-  correctAnswer Int
+  correctAnswer String
 }
 
 

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
@@ -19,6 +19,7 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "./ui/textarea";
 import { Loader } from "./loader";
+import { usePathname } from "next/navigation";
 
 // Define the type for the quiz data
 interface QuizItem {
@@ -27,7 +28,7 @@ interface QuizItem {
   correct_answer: number;
 }
 
-export default function QuizPage() {
+export default function QuizPage( { quizId }: { quizId: string }) {
   const [topic, setTopic] = useState("");
   const [quizData, setQuizData] = useState<QuizItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -38,21 +39,77 @@ export default function QuizPage() {
   const [answerFeedback, setAnswerFeedback] = useState<{
     [key: number]: boolean | null;
   }>({});
+  const path = usePathname();
+  const cleanedPath = path.startsWith('/') ? path.substring(1) : path;
 
+  console.log(cleanedPath)
+
+   // Fetch quiz questions when the quizId changes
+   useEffect(() => {
+    const fetchQuizQuestions = async () => {
+      if (!quizId) return; // Return if no quizId is provided
+      setIsLoading(true);
+
+      try {
+        const response = await fetch("/api/retrieveQuiz", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            quizId, // Use the quizId passed from the Quiz component
+          }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setQuizData(data);
+          setIsDialogOpen(true);
+        } else {
+          console.log("Failed to fetch quiz questions");
+        }
+      } catch (error) {
+        console.error("Error fetching quiz questions:", error);
+      } finally {
+        setIsLoading(false);
+        
+      }
+    };
+
+    fetchQuizQuestions();
+  }, [quizId]);
+  
+  
+  
   const handleNewQuiz = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch("http://127.0.0.1:5000/api/questions", {
+      const response = await fetch("/api/generateQuiz", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          topic: topic,
+          textForGeneration: topic,
+          courseCode : cleanedPath
         }),
       });
       if (response.ok) {
-        const data = await response.json();
+        const { quizId } = await response.json();
+        console.log("Quiz created with ID:", quizId);
+
+      // Step 2: Fetch the quiz questions using the quizId
+        const quizQuestionsResponse = await fetch("/api/retrieveQuiz", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            quizId: quizId, // Send the quizId to fetch the questions
+          }),
+        });
+
+        const data = await quizQuestionsResponse.json();
         console.log(data);
         setQuizData(data);
         setIsDialogOpen(true);
