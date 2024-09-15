@@ -44,10 +44,10 @@ export default function QuizPage( { quizId }: { quizId: string }) {
 
   console.log(cleanedPath)
 
-   // Fetch quiz questions when the quizId changes
+   
    useEffect(() => {
     const fetchQuizQuestions = async () => {
-      if (!quizId) return; // Return if no quizId is provided
+      if (!quizId) return; 
       setIsLoading(true);
 
       try {
@@ -57,7 +57,7 @@ export default function QuizPage( { quizId }: { quizId: string }) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            quizId, // Use the quizId passed from the Quiz component
+            quizId, 
           }),
         });
 
@@ -98,14 +98,14 @@ export default function QuizPage( { quizId }: { quizId: string }) {
         const { quizId } = await response.json();
         console.log("Quiz created with ID:", quizId);
 
-      // Step 2: Fetch the quiz questions using the quizId
+     
         const quizQuestionsResponse = await fetch("/api/retrieveQuiz", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            quizId: quizId, // Send the quizId to fetch the questions
+            quizId: quizId, 
           }),
         });
 
@@ -130,7 +130,7 @@ export default function QuizPage( { quizId }: { quizId: string }) {
     }));
     setAnswerFeedback((prevFeedback) => ({
       ...prevFeedback,
-      [questionIndex]: null, // Reset feedback for this question when an answer is selected
+      [questionIndex]: null,
     }));
   };
 
@@ -152,26 +152,21 @@ export default function QuizPage( { quizId }: { quizId: string }) {
   const getAnswerBackgroundColor = (questionIndex: number, answerIndex: number) => {
     const selectedAnswer = selectedAnswers[questionIndex];
     
-    // Ensure selectedAnswer is not null or undefined before using it as an index
     if (selectedAnswer !== null && selectedAnswer !== undefined) {
       const selectedAnswerText = quizData[questionIndex].answers[selectedAnswer];
       const correctAnswer = quizData[questionIndex].correct_answer;
       const correctAnswerText = String(correctAnswer);
     
-      // Only apply background colors after "Check Answer" has been clicked
       if (answerFeedback[questionIndex] !== null) {
-        // Correct answer, always green
         if (quizData[questionIndex].answers[answerIndex] === correctAnswerText) {
           return "bg-green-500";
         }
-        // Incorrect selected answer, red background for the wrong selected answer
         if (selectedAnswerText !== correctAnswerText) {
           return "bg-red-500";
         }
       }
     }
   
-    // No color change before checking the answer
     return "bg-white";
   };
 

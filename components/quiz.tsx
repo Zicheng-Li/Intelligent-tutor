@@ -21,12 +21,12 @@ export default function Quiz({ classId }: { classId: string }) {
   const path = usePathname();
   const cleanedPath = path.startsWith('/') ? path.substring(1) : path;
   const handleQuizClick = (quizId: string) => {
-    setSelectedQuizId(quizId); // Set the selected quizId
+    setSelectedQuizId(quizId); 
   };
 
   console.log(cleanedPath)
 
-  // Fetch quizzes from the API
+
   useEffect(() => {
     const fetchQuizzes = async () => {
       try {
