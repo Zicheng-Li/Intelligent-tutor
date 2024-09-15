@@ -146,3 +146,72 @@
 [32mINFO[0m:     [14-09-2024 19:44:19] ::1:60832 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
 [32mINFO[0m:     [14-09-2024 19:44:19] ::1:60832 - "POST /api/v1/collections/dadb60ce-4da8-4d03-9f46-4b77690ce530/query HTTP/1.1" 200
 
+[33mWARNING[0m:  [14-09-2024 22:25:36] chroma_server_nofile is set to 65535, but this is less than current soft limit of 1048576. chroma_server_nofile will not be set.
+[32mINFO[0m:     [14-09-2024 22:25:36] Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+[36mDEBUG[0m:    [14-09-2024 22:25:36] Starting component System
+[36mDEBUG[0m:    [14-09-2024 22:25:36] Starting component OpenTelemetryClient
+[36mDEBUG[0m:    [14-09-2024 22:25:36] Starting component SqliteDB
+[36mDEBUG[0m:    [14-09-2024 22:25:36] Starting component QuotaEnforcer
+[36mDEBUG[0m:    [14-09-2024 22:25:36] Starting component Posthog
+[36mDEBUG[0m:    [14-09-2024 22:25:36] Starting component LocalSegmentManager
+[36mDEBUG[0m:    [14-09-2024 22:25:36] Starting component SegmentAPI
+[32mINFO[0m:     [14-09-2024 22:25:36] Started server process [[36m14059[0m]
+[32mINFO[0m:     [14-09-2024 22:25:36] Waiting for application startup.
+[32mINFO[0m:     [14-09-2024 22:25:36] Application startup complete.
+[32mINFO[0m:     [14-09-2024 22:25:36] Uvicorn running on [1mhttp://localhost:8000[0m (Press CTRL+C to quit)
+[36mDEBUG[0m:    [14-09-2024 22:41:43] Collection user_2lu5aqxzH8dTqjm1sJ0oPSTd3iN_cm12559sz0001komzb9ke7ymo already exists, returning existing collection.
+[32mINFO[0m:     [14-09-2024 22:41:43] 127.0.0.1:57526 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[36mDEBUG[0m:    [14-09-2024 22:41:44] Starting component PersistentLocalHnswSegment
+[32mINFO[0m:     [14-09-2024 22:41:44] 127.0.0.1:57526 - "POST /api/v1/collections/dadb60ce-4da8-4d03-9f46-4b77690ce530/query HTTP/1.1" 200
+[32mINFO[0m:     [14-09-2024 22:49:14] 127.0.0.1:38026 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[36mDEBUG[0m:    [14-09-2024 22:49:14] Starting component PersistentLocalHnswSegment
+[32mINFO[0m:     [14-09-2024 22:49:14] 127.0.0.1:38026 - "POST /api/v1/collections/d8145840-9fc2-4c08-97d4-c05cab98dae8/query HTTP/1.1" 200
+[36mDEBUG[0m:    [14-09-2024 22:49:36] Collection undefined_undefined already exists, returning existing collection.
+[32mINFO[0m:     [14-09-2024 22:49:36] 127.0.0.1:37350 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [14-09-2024 22:49:37] 127.0.0.1:37350 - "POST /api/v1/collections/d8145840-9fc2-4c08-97d4-c05cab98dae8/query HTTP/1.1" 200
+[36mDEBUG[0m:    [14-09-2024 22:50:07] Collection undefined_undefined already exists, returning existing collection.
+[32mINFO[0m:     [14-09-2024 22:50:07] 127.0.0.1:48876 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [14-09-2024 22:50:07] 127.0.0.1:48876 - "POST /api/v1/collections/d8145840-9fc2-4c08-97d4-c05cab98dae8/query HTTP/1.1" 200
+[36mDEBUG[0m:    [14-09-2024 22:52:29] Collection undefined_undefined already exists, returning existing collection.
+[32mINFO[0m:     [14-09-2024 22:52:29] 127.0.0.1:42806 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [14-09-2024 22:52:29] 127.0.0.1:42806 - "POST /api/v1/collections/d8145840-9fc2-4c08-97d4-c05cab98dae8/query HTTP/1.1" 200
+[36mDEBUG[0m:    [14-09-2024 22:56:09] Collection undefined_undefined already exists, returning existing collection.
+[32mINFO[0m:     [14-09-2024 22:56:09] 127.0.0.1:35848 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [14-09-2024 22:56:09] 127.0.0.1:35848 - "POST /api/v1/collections/d8145840-9fc2-4c08-97d4-c05cab98dae8/query HTTP/1.1" 200
+[36mDEBUG[0m:    [14-09-2024 23:01:10] Collection undefined_undefined already exists, returning existing collection.
+[32mINFO[0m:     [14-09-2024 23:01:10] 127.0.0.1:42404 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [14-09-2024 23:01:10] 127.0.0.1:42404 - "POST /api/v1/collections/d8145840-9fc2-4c08-97d4-c05cab98dae8/query HTTP/1.1" 200
+[36mDEBUG[0m:    [14-09-2024 23:02:23] Collection undefined_undefined already exists, returning existing collection.
+[32mINFO[0m:     [14-09-2024 23:02:23] 127.0.0.1:40174 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [14-09-2024 23:02:24] 127.0.0.1:40174 - "POST /api/v1/collections/d8145840-9fc2-4c08-97d4-c05cab98dae8/query HTTP/1.1" 200
+[36mDEBUG[0m:    [14-09-2024 23:09:45] Collection undefined_undefined already exists, returning existing collection.
+[32mINFO[0m:     [14-09-2024 23:09:45] 127.0.0.1:39554 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [14-09-2024 23:09:46] 127.0.0.1:39554 - "POST /api/v1/collections/d8145840-9fc2-4c08-97d4-c05cab98dae8/query HTTP/1.1" 200
+[36mDEBUG[0m:    [14-09-2024 23:12:03] Collection undefined_undefined already exists, returning existing collection.
+[32mINFO[0m:     [14-09-2024 23:12:03] 127.0.0.1:44480 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [14-09-2024 23:12:03] 127.0.0.1:44480 - "POST /api/v1/collections/d8145840-9fc2-4c08-97d4-c05cab98dae8/query HTTP/1.1" 200
+[36mDEBUG[0m:    [14-09-2024 23:15:23] Collection undefined_undefined already exists, returning existing collection.
+[32mINFO[0m:     [14-09-2024 23:15:23] 127.0.0.1:54660 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [14-09-2024 23:15:23] 127.0.0.1:54660 - "POST /api/v1/collections/d8145840-9fc2-4c08-97d4-c05cab98dae8/query HTTP/1.1" 200
+[32mINFO[0m:     [14-09-2024 23:27:59] 127.0.0.1:59282 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[36mDEBUG[0m:    [14-09-2024 23:28:00] Starting component PersistentLocalHnswSegment
+[32mINFO[0m:     [14-09-2024 23:28:00] 127.0.0.1:59282 - "POST /api/v1/collections/82066068-4d86-4b51-bdbe-1774647605ff/query HTTP/1.1" 200
+[36mDEBUG[0m:    [14-09-2024 23:34:07] Collection user_2m44jDFDMP1hS5wrtrODPu4mjFR_undefined already exists, returning existing collection.
+[32mINFO[0m:     [14-09-2024 23:34:07] 127.0.0.1:40832 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [14-09-2024 23:34:07] 127.0.0.1:40832 - "POST /api/v1/collections/82066068-4d86-4b51-bdbe-1774647605ff/query HTTP/1.1" 200
+[36mDEBUG[0m:    [14-09-2024 23:44:16] Collection user_2m44jDFDMP1hS5wrtrODPu4mjFR_undefined already exists, returning existing collection.
+[32mINFO[0m:     [14-09-2024 23:44:16] 127.0.0.1:44004 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [14-09-2024 23:44:16] 127.0.0.1:44004 - "POST /api/v1/collections/82066068-4d86-4b51-bdbe-1774647605ff/query HTTP/1.1" 200
+[36mDEBUG[0m:    [14-09-2024 23:45:55] Collection user_2m44jDFDMP1hS5wrtrODPu4mjFR_undefined already exists, returning existing collection.
+[32mINFO[0m:     [14-09-2024 23:45:55] 127.0.0.1:60356 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [14-09-2024 23:45:55] 127.0.0.1:60356 - "POST /api/v1/collections/82066068-4d86-4b51-bdbe-1774647605ff/query HTTP/1.1" 200
+[36mDEBUG[0m:    [14-09-2024 23:49:56] Collection user_2m44jDFDMP1hS5wrtrODPu4mjFR_undefined already exists, returning existing collection.
+[32mINFO[0m:     [14-09-2024 23:49:56] 127.0.0.1:46230 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [14-09-2024 23:49:56] 127.0.0.1:46230 - "POST /api/v1/collections/82066068-4d86-4b51-bdbe-1774647605ff/query HTTP/1.1" 200
+[36mDEBUG[0m:    [14-09-2024 23:52:27] Collection user_2m44jDFDMP1hS5wrtrODPu4mjFR_undefined already exists, returning existing collection.
+[32mINFO[0m:     [14-09-2024 23:52:27] 127.0.0.1:48232 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [14-09-2024 23:52:28] 127.0.0.1:48232 - "POST /api/v1/collections/82066068-4d86-4b51-bdbe-1774647605ff/query HTTP/1.1" 200
+[36mDEBUG[0m:    [14-09-2024 23:53:50] Collection user_2m44jDFDMP1hS5wrtrODPu4mjFR_cm12cih9g0001e9er71onfd87 already exists, returning existing collection.
+[32mINFO[0m:     [14-09-2024 23:53:50] 127.0.0.1:47652 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[36mDEBUG[0m:    [14-09-2024 23:53:50] Starting component PersistentLocalHnswSegment
+[32mINFO[0m:     [14-09-2024 23:53:50] 127.0.0.1:47652 - "POST /api/v1/collections/48fa353a-c9f2-4b91-8991-43f8ab55f4a4/query HTTP/1.1" 200

@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma'; // Ensure you have set up Prisma client properly
-
+import { auth } from '@clerk/nextjs/server'
 export async function POST(request: NextRequest) {
   try {
-    const { userId, code, description } = await request.json();
+    const { code, description } = await request.json();
+
+    const { userId } = auth()
 
     // Validate the input
     if (!userId || !code || !description) {

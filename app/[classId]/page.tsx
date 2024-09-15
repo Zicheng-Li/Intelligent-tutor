@@ -8,6 +8,7 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import QuizPage from "@/components/quziPage";
+
 export default function Page({ params }: { params: { classId: string } }) {
   const InfoCard = (
     <div className="p-4 md:p-8 rounded flex flex-col items-center w-full h-full">
@@ -42,6 +43,7 @@ export default function Page({ params }: { params: { classId: string } }) {
               titleText="Your own Intelligent Tutor"
               placeholder="Type your question here..."
               emptyStateComponent={InfoCard}
+              courseName={params.classId}
             />
                 {/* <QuizPage /> */}
               </div>

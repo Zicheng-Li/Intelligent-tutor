@@ -11,6 +11,7 @@ import type { FormEvent } from "react";
 import { ChatMessageBubble } from "./ChatMessageBubble";
 import { IntermediateStep } from "./IntermediateStep";
 
+
 export function ChatWindow(props: {
   endpoint: string,
   emptyStateComponent: ReactElement,
@@ -19,9 +20,10 @@ export function ChatWindow(props: {
   emoji?: string;
   showIngestForm?: boolean,
   showIntermediateStepsToggle?: boolean
+  courseName?: string
 }) {
   const messageContainerRef = useRef<HTMLDivElement | null>(null);
-
+  
   const { endpoint, emptyStateComponent, placeholder, titleText = "An LLM", showIngestForm, showIntermediateStepsToggle, emoji } = props;
 
   const [showIntermediateSteps, setShowIntermediateSteps] = useState(false);
@@ -73,11 +75,16 @@ export function ChatWindow(props: {
       setInput("");
       const messagesWithUserReply = messages.concat({ id: messages.length.toString(), content: input, role: "user" });
       setMessages(messagesWithUserReply);
+      
       const response = await fetch(endpoint, {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",  // Important: Ensure correct content type
+        },
         body: JSON.stringify({
+          courseName: props.courseName,
           messages: messagesWithUserReply,
-          show_intermediate_steps: true
+          show_intermediate_steps: true,
         })
       });
       const json = await response.json();

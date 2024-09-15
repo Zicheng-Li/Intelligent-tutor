@@ -4,11 +4,12 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { CohereEmbeddings } from "@langchain/cohere"
 import { Chroma } from "@langchain/community/vectorstores/chroma";
+import { auth } from '@clerk/nextjs/server'
 
 export async function POST(request: NextRequest) {
   const formData = await request.formData();
   const file = formData.get('pdf') as Blob;
-  const userId = formData.get('userId') as string;
+  const {userId} = auth()
   const courseCode = formData.get('courseCode') as string;
   const uploadedFileName = formData.get('uploadedFileName') as string;
 
