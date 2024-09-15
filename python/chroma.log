@@ -248,3 +248,21 @@
 [36mDEBUG[0m:    [15-09-2024 06:33:19] Collection user_2lu5aqxzH8dTqjm1sJ0oPSTd3iN_cm13ffp1b0001fskk6vugppzx already exists, returning existing collection.
 [32mINFO[0m:     [15-09-2024 06:33:19] ::1:57496 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
 [32mINFO[0m:     [15-09-2024 06:33:19] ::1:57496 - "POST /api/v1/collections/193df326-c3c4-444a-8dcd-6f6f8987ba52/query HTTP/1.1" 200
+[36mDEBUG[0m:    [15-09-2024 06:50:36] Collection user_2lu5aqxzH8dTqjm1sJ0oPSTd3iN_cm13ffp1b0001fskk6vugppzx already exists, returning existing collection.
+[32mINFO[0m:     [15-09-2024 06:50:36] ::1:57845 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [15-09-2024 06:50:36] ::1:57846 - "POST /api/v1/collections/193df326-c3c4-444a-8dcd-6f6f8987ba52/upsert HTTP/1.1" 200
+[36mDEBUG[0m:    [15-09-2024 06:53:06] Collection user_2lu5aqxzH8dTqjm1sJ0oPSTd3iN_cm13ffp1b0001fskk6vugppzx already exists, returning existing collection.
+[32mINFO[0m:     [15-09-2024 06:53:06] ::1:57887 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [15-09-2024 06:53:06] ::1:57887 - "POST /api/v1/collections/193df326-c3c4-444a-8dcd-6f6f8987ba52/query HTTP/1.1" 200
+[36mDEBUG[0m:    [15-09-2024 06:53:27] Collection user_2lu5aqxzH8dTqjm1sJ0oPSTd3iN_cm13ffp1b0001fskk6vugppzx already exists, returning existing collection.
+[32mINFO[0m:     [15-09-2024 06:53:27] ::1:57894 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [15-09-2024 06:53:27] ::1:57894 - "POST /api/v1/collections/193df326-c3c4-444a-8dcd-6f6f8987ba52/query HTTP/1.1" 200
+[36mDEBUG[0m:    [15-09-2024 06:54:06] Collection user_2lu5aqxzH8dTqjm1sJ0oPSTd3iN_cm13ffp1b0001fskk6vugppzx already exists, returning existing collection.
+[32mINFO[0m:     [15-09-2024 06:54:06] ::1:57900 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [15-09-2024 06:54:06] ::1:57900 - "POST /api/v1/collections/193df326-c3c4-444a-8dcd-6f6f8987ba52/query HTTP/1.1" 200
+[32mINFO[0m:     [15-09-2024 06:57:19] ::1:57965 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[36mDEBUG[0m:    [15-09-2024 06:57:19] Starting component PersistentLocalHnswSegment
+[32mINFO[0m:     [15-09-2024 06:57:19] ::1:57966 - "POST /api/v1/collections/06cc2761-165e-4f68-9159-20c491b2b882/upsert HTTP/1.1" 200
+[36mDEBUG[0m:    [15-09-2024 06:57:26] Collection user_2lu5aqxzH8dTqjm1sJ0oPSTd3iN_cm13gorm3007lbag9z6olyv5f already exists, returning existing collection.
+[32mINFO[0m:     [15-09-2024 06:57:26] ::1:57969 - "POST /api/v1/collections?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [15-09-2024 06:57:26] ::1:57969 - "POST /api/v1/collections/06cc2761-165e-4f68-9159-20c491b2b882/query HTTP/1.1" 200

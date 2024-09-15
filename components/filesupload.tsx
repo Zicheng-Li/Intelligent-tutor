@@ -6,13 +6,12 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 
-
 export default function ({ courseId }: { courseId: string }) {
-
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploadStatus, setUploadStatus] = useState<string>("");
   const [getFilesStatus, setGetFilesStatus] = useState<string>("");
   const [files, setFiles] = useState<{ id: string; name: string }[]>([]); // State to hold fetched files
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -20,7 +19,7 @@ export default function ({ courseId }: { courseId: string }) {
     }
   };
 
-  // Fetch the files when the component mounts
+
   useEffect(() => {
     if (courseId) {
       getFiles();
@@ -28,8 +27,7 @@ export default function ({ courseId }: { courseId: string }) {
   }, [courseId]);
 
   const getFiles = async () => {
-    
-
+    setLoading(true);
     try {
       const response = await fetch("/api/getClassFiles", {
         method: "POST",
@@ -37,14 +35,14 @@ export default function ({ courseId }: { courseId: string }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          courseName: courseId, // Assuming courseId is actually the course name
+          courseName: courseId, 
         }),
       });
 
       if (response.ok) {
         const data = await response.json();
         console.log(data);
-        setFiles(data.files); // Store the files in state
+        setFiles(data.files); 
         setGetFilesStatus("Files fetched successfully");
       } else {
         setGetFilesStatus("Failed to fetch files");
@@ -55,6 +53,8 @@ export default function ({ courseId }: { courseId: string }) {
       } else {
         setGetFilesStatus("Failed to fetch files: unknown error");
       }
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -64,11 +64,12 @@ export default function ({ courseId }: { courseId: string }) {
       return;
     }
 
-
     const formData = new FormData();
     formData.append("pdf", selectedFile);
     formData.append("courseCode", courseId);
     formData.append("uploadedFileName", selectedFile.name);
+
+    setLoading(true);
 
     try {
       const response = await fetch("/api/parse-pdf", {
@@ -78,7 +79,7 @@ export default function ({ courseId }: { courseId: string }) {
 
       if (response.ok) {
         setUploadStatus("File uploaded successfully.");
-        getFiles(); // Refresh the files after a successful upload
+        getFiles(); 
       } else {
         setUploadStatus("File upload failed.");
       }
@@ -88,52 +89,68 @@ export default function ({ courseId }: { courseId: string }) {
       } else {
         setUploadStatus("File upload failed: unknown error");
       }
+    } finally {
+      setLoading(false); 
     }
   };
 
   return (
     <div className="flex flex-col h-full p-4 gap-3 pt-6 justify-between">
-      <div className="flex flex-col gap-5">
-        <p className="text-2xl font-medium">Uploaded Files</p>
-
-        <ScrollArea className="w-full rounded-md border">
-          <div className="p-4">
-            {getFilesStatus && (
-              <h4 className="mb-4 text-sm font-medium leading-none">{getFilesStatus}</h4>
-            )}
-
-            {/* Display files dynamically */}
-            {files.length > 0 ? (
-              files.map((file) => (
-                <div key={file.id} className="text-sm mb-2">
-                  {file.name}
-                </div>
-              ))
-            ) : (
-              <p>No files uploaded yet.</p>
-            )}
-
-            <Separator className="my-2" />
+      {loading && (
+        <div className="flex justify-center items-center">
+          <div className="three-body">
+            <div className="three-body__dot"></div>
+            <div className="three-body__dot"></div>
+            <div className="three-body__dot"></div>
           </div>
-        </ScrollArea>
-      </div>
+        </div>
+      )}
 
-      <div className="grid w-full max-w-sm items-center gap-1.5 mb-9">
-        <Label htmlFor="picture">Upload files</Label>
-        <Input
-          id="picture"
-          type="file"
-          className="w-full"
-          onChange={handleFileChange}
-        />
-        <Button
-          className="w-full bg-black text-white hover:bg-gray-800"
-          onClick={handleFileUpload}
-        >
-          Upload
-        </Button>
-        {uploadStatus && <p className="text-sm mt-2">{uploadStatus}</p>}
-      </div>
+{!loading && (
+      <>
+        <div className="flex flex-col gap-5">
+          <p className="text-2xl font-medium">Uploaded Files</p>
+          <ScrollArea className="w-full rounded-md border">
+            <div className="p-4">
+              {getFilesStatus && (
+                <h4 className="mb-4 text-sm font-medium leading-none">
+                  {getFilesStatus}
+                </h4>
+              )}
+
+              {files.length > 0 ? (
+                files.map((file) => (
+                  <div key={file.id} className="text-sm mb-2">
+                    {file.name}
+                  </div>
+                ))
+              ) : (
+                <p>No files uploaded yet.</p>
+              )}
+
+              <Separator className="my-2" />
+            </div>
+          </ScrollArea>
+        </div>
+
+        <div className="grid w-full max-w-sm items-center gap-1.5 mb-9">
+          <Label htmlFor="picture">Upload files</Label>
+          <Input
+            id="picture"
+            type="file"
+            className="w-full"
+            onChange={handleFileChange}
+          />
+          <Button
+            className="w-full bg-black text-white hover:bg-gray-800"
+            onClick={handleFileUpload}
+          >
+            Upload
+          </Button>
+          {uploadStatus && <p className="text-sm mt-2">{uploadStatus}</p>}
+        </div>
+      </>
+    )}
     </div>
   );
 }
