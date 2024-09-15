@@ -6,20 +6,52 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { useUser } from "@clerk/nextjs";
-export default function FilesUpload({courseId} : {courseId: string}) {
+export default function ({courseId} : {courseId: string}) {
   const { user } = useUser();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploadStatus, setUploadStatus] = useState<string>("");
+  const [getFilesStatus, setGetFilesStatus] = useState<string>("");
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       setSelectedFile(event.target.files[0]);
     }
   };
 
-  // const getFiles = async () => {
+  let Files=[];
 
+  const getFiles = async () => {
+    const formData = new FormData();
+    if (!user || !user.id) {
+      setGetFilesStatus("User information is missing");
+      return;
+    }
+    formData.append("classId", courseId);
+    formData.append("userId", user.id);
 
-  // };
+    try{
+      const response = await fetch("/api/get-class-files", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        Files=data;
+        setGetFilesStatus("Files");
+
+      } else {
+        setGetFilesStatus("Failed to fetch files");
+      }
+    }
+    catch (error) {
+      if (error instanceof Error) {
+        setGetFilesStatus("Failed to fetch files: " + error.message);
+      } else {
+        setGetFilesStatus("Failed to fetch files: unknown error");
+      }
+    }
+  };
 
   const handleFileUpload = async () => {
     if (!selectedFile) {
@@ -63,7 +95,7 @@ export default function FilesUpload({courseId} : {courseId: string}) {
 
         <ScrollArea className="w-full  rounded-md border">
           <div className="p-4">
-            <h4 className="mb-4 text-sm font-medium leading-none">Files</h4>
+            {getFilesStatus && <h4 className="mb-4 text-sm font-medium leading-none">{getFilesStatus}</h4>}
 
             <div className="text-sm">React files</div>
             <Separator className="my-2" />

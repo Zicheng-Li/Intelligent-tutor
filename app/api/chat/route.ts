@@ -50,8 +50,8 @@ export async function POST(req: NextRequest) {
     });
 
     // Initialize the vector store for the user's course material
-    const userId = "user_id";  // Replace with actual userId
-    const courseId = "course_id"; // Replace with actual courseId
+    const userId = "user_2lu5aqxzH8dTqjm1sJ0oPSTd3iN";  // Replace with actual userId
+    const courseId = "cm12559sz0001komzb9ke7ymo"; // Replace with actual courseId
     const vectorStore = await Chroma.fromExistingCollection(embeddings, {
       collectionName: `${userId}_${courseId}`,
     });
@@ -64,14 +64,16 @@ export async function POST(req: NextRequest) {
 
     // Extract the most relevant chunks to form the context
     let context = searchResults
-      .filter(([document, score]) => score > 0.8)  // Filter based on relevance score
+      .filter(([document, score]) => score > 0.2)  // Filter based on relevance score
       .map(([document]) => document.pageContent)
       .join("\n\n");
-
+    console.log("Context1:", context);
     if (context.length === 0) {
       context = "No relevant material found in your uploaded documents.";
+      console.log("Context2:", context);
     }
-
+    console.log("Context3:", context);
+    
     const outputParser = new HttpResponseOutputParser();
 
     const chain = prompt.pipe(model).pipe(outputParser);
