@@ -35,7 +35,7 @@ export default function Page({ params }: { params: { classId: string } }) {
         <ResizablePanelGroup direction="horizontal" className="h-full">
           <ResizablePanel defaultSize={64} order={1}>
             <div className="h-full bg-white shadow-lg">
-              <div className="p-4  bg-gray-100 overflow-auto h-full">
+              <div className="p-4  bg-gray-100 h-full">
               <ChatWindow
               endpoint="api/chat"
               emoji="👨‍🏫"
