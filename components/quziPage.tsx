@@ -53,6 +53,7 @@ export default function QuizPage() {
       });
       if (response.ok) {
         const data = await response.json();
+        console.log(data);
         setQuizData(data);
         setIsDialogOpen(true);
       } else {
@@ -77,36 +78,45 @@ export default function QuizPage() {
   };
 
   const handleCheckAnswer = (questionIndex: number) => {
-    const selectedAnswer = selectedAnswers[questionIndex];
-    const correctAnswer = quizData[questionIndex].correct_answer;
-    if (selectedAnswer !== null) {
+    const selectedAnswerIndex = selectedAnswers[questionIndex];
+  
+    if (selectedAnswerIndex !== null && selectedAnswerIndex !== undefined) {
+      const selectedAnswerText = quizData[questionIndex].answers[selectedAnswerIndex];
+      const correctAnswer = quizData[questionIndex].correct_answer;
+      const correctAnswerText = String(correctAnswer);
       setAnswerFeedback((prevFeedback) => ({
         ...prevFeedback,
-        [questionIndex]: selectedAnswer === correctAnswer, // True if correct, false if incorrect
+        [questionIndex]: selectedAnswerText === correctAnswerText, // Compare the selected text with the correct answer
       }));
     }
   };
+  
 
   const getAnswerBackgroundColor = (questionIndex: number, answerIndex: number) => {
     const selectedAnswer = selectedAnswers[questionIndex];
-    const correctAnswer = quizData[questionIndex].correct_answer;
     
-    // Only apply background colors after "Check Answer" has been clicked
-    if (answerFeedback[questionIndex] !== null) {
-      // Correct answer, always green
-      if (answerIndex === correctAnswer) {
-        return "bg-green-500";
-      }
-      // Incorrect selected answer, red background for the wrong selected answer
-      if (selectedAnswer === answerIndex) {
-        return "bg-red-500";
+    // Ensure selectedAnswer is not null or undefined before using it as an index
+    if (selectedAnswer !== null && selectedAnswer !== undefined) {
+      const selectedAnswerText = quizData[questionIndex].answers[selectedAnswer];
+      const correctAnswer = quizData[questionIndex].correct_answer;
+      const correctAnswerText = String(correctAnswer);
+    
+      // Only apply background colors after "Check Answer" has been clicked
+      if (answerFeedback[questionIndex] !== null) {
+        // Correct answer, always green
+        if (quizData[questionIndex].answers[answerIndex] === correctAnswerText) {
+          return "bg-green-500";
+        }
+        // Incorrect selected answer, red background for the wrong selected answer
+        if (selectedAnswerText !== correctAnswerText) {
+          return "bg-red-500";
+        }
       }
     }
   
     // No color change before checking the answer
-    return "bg-white"; 
+    return "bg-white";
   };
-  
 
   return (
     <div>
@@ -154,7 +164,7 @@ export default function QuizPage() {
                                 key={answerIndex}
                                 value={answerIndex.toString()}
                                 aria-label={`Answer ${answerIndex}`}
-                                className={`border border-gray-300 rounded p-4 w-full text-center hover:bg-gray-100 ${getAnswerBackgroundColor(
+                                className={`border border-black rounded p-4 w-full text-center  focus:bg-sky-300 ${getAnswerBackgroundColor(
                                   index,
                                   answerIndex
                                 )}`}
