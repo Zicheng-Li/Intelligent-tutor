@@ -86,3 +86,30 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+
+/* From Uiverse.io by Pradeepsaranbishnoi */ 
+.code-loader {
+  color: #1b191992;
+  font-family: Consolas, Menlo, Monaco, monospace;
+  font-weight: bold;
+  font-size: 100px;
+  opacity: 0.8;
+}
+
+.code-loader span {
+  display: inline-block;
+  animation: pulse_414 0.4s alternate infinite ease-in-out;
+}
+
+.code-loader span:nth-child(odd) {
+  animation-delay: 0.4s;
+}
+
+@keyframes pulse_414 {
+  to {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+}

@@ -31,7 +31,6 @@ export default function Quiz() {
 
         <div className="grid w-full max-w-sm items-center gap-4 mb-9">
           <Label htmlFor="picture">Generate a new quiz</Label>
-          <Textarea placeholder="What topic would you like your quiz based on?" className="w-full" />
           <QuizPage />
 
           
