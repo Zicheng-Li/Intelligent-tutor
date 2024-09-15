@@ -22,12 +22,12 @@ DO NOT respond with anything else other than the JSON
 [{{
     "question": "question1",
     "answers": ["answer1", "answer2", "answer3", "answer4"],
-    "correct_answer": 3
+    "correct_answer": "answer1"
 }},
 {{
     "question": "question2",
     "answers": ["answer1", "answer2", "answer3", "answer4"],
-    "correct_answer": 2
+    "correct_answer": "answer3"
 }}] 
 
 Begin: 
