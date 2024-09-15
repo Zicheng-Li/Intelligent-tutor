@@ -5,10 +5,10 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { useUser } from "@clerk/nextjs";
+
 
 export default function ({ courseId }: { courseId: string }) {
-  const { user } = useUser();
+
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploadStatus, setUploadStatus] = useState<string>("");
   const [getFilesStatus, setGetFilesStatus] = useState<string>("");
@@ -22,16 +22,13 @@ export default function ({ courseId }: { courseId: string }) {
 
   // Fetch the files when the component mounts
   useEffect(() => {
-    if (courseId && user?.id) {
+    if (courseId) {
       getFiles();
     }
-  }, [courseId, user?.id]);
+  }, [courseId]);
 
   const getFiles = async () => {
-    if (!user || !user.id) {
-      setGetFilesStatus("User information is missing");
-      return;
-    }
+    
 
     try {
       const response = await fetch("/api/getClassFiles", {
@@ -40,7 +37,6 @@ export default function ({ courseId }: { courseId: string }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userId: user.id,
           courseName: courseId, // Assuming courseId is actually the course name
         }),
       });
@@ -68,15 +64,10 @@ export default function ({ courseId }: { courseId: string }) {
       return;
     }
 
-    if (!user || !user.id) {
-      setUploadStatus("User information is missing");
-      return;
-    }
 
     const formData = new FormData();
     formData.append("pdf", selectedFile);
     formData.append("courseCode", courseId);
-    formData.append("userId", user.id);
     formData.append("uploadedFileName", selectedFile.name);
 
     try {

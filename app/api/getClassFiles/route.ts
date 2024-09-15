@@ -1,7 +1,7 @@
 // File: app/api/get-class-files/route.ts
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-
+import { auth } from '@clerk/nextjs/server'
 // Reuse the logic from getClassId
 async function getClassId(userId: string, name: string) {
   const classData = await prisma.class.findFirst({
@@ -19,7 +19,8 @@ async function getClassId(userId: string, name: string) {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { userId, courseName } = body;
+    const {userId} = auth()
+    const {  courseName } = body;
 
     // Validate input
     if (!courseName || !userId) {

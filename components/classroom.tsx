@@ -33,7 +33,7 @@ export default function Classroom() {
 
   useEffect(() => {
     if (user) {
-      fetch(`/api/getClasses?userId=${user.id}`)
+      fetch(`/api/getClasses`)
         .then((response) => response.json())
         .then((data) => {
           setClasses(data);
@@ -54,7 +54,6 @@ export default function Classroom() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            userId: user.id,
             code,
             description,
           }),
