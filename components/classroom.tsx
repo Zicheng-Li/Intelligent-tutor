@@ -87,15 +87,17 @@ export default function Classroom() {
 
   return (
     <div className="relative flex flex-col w-full ">
-      <p className="text-2xl p-4 pt-2 ml-10 mt-8 font-medium">My Classes</p>
+      <p className="text-3xl p-4 pt-2 ml-10 mt-8 font-medium text-center text-blue-500">My Classes</p>
       <div className="grid grid-cols-3 gap-4 p-14 pt-7 gap-y-7">
         {classes.map((cls, index) => (
           <Card
             key={index}
+
+            className="border-gray-400 hover:shadow-xl hover:bg-gray-100"
             
           >
-            <CardHeader>
-              <CardTitle className="w-full cursor-pointer" // Add cursor-pointer for visual indication
+            <CardHeader className="w-full cursor-pointer">
+              <CardTitle  // Add cursor-pointer for visual indication
             onClick={() => handleCardClick(cls.name)} // Handle card click
               >{cls.name}</CardTitle>
               <CardDescription>{cls.description}</CardDescription>

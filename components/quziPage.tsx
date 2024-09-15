@@ -28,7 +28,7 @@ interface QuizItem {
   correct_answer: number;
 }
 
-export default function QuizPage( { quizId }: { quizId: string }) {
+export default function QuizPage({ quizId }: { quizId: string }) {
   const [topic, setTopic] = useState("");
   const [quizData, setQuizData] = useState<QuizItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -40,14 +40,13 @@ export default function QuizPage( { quizId }: { quizId: string }) {
     [key: number]: boolean | null;
   }>({});
   const path = usePathname();
-  const cleanedPath = path.startsWith('/') ? path.substring(1) : path;
+  const cleanedPath = path.startsWith("/") ? path.substring(1) : path;
 
-  console.log(cleanedPath)
+  console.log(cleanedPath);
 
-   
-   useEffect(() => {
+  useEffect(() => {
     const fetchQuizQuestions = async () => {
-      if (!quizId) return; 
+      if (!quizId) return;
       setIsLoading(true);
 
       try {
@@ -57,7 +56,7 @@ export default function QuizPage( { quizId }: { quizId: string }) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            quizId, 
+            quizId,
           }),
         });
 
@@ -72,15 +71,12 @@ export default function QuizPage( { quizId }: { quizId: string }) {
         console.error("Error fetching quiz questions:", error);
       } finally {
         setIsLoading(false);
-        
       }
     };
 
     fetchQuizQuestions();
   }, [quizId]);
-  
-  
-  
+
   const handleNewQuiz = async () => {
     setIsLoading(true);
     try {
@@ -91,21 +87,20 @@ export default function QuizPage( { quizId }: { quizId: string }) {
         },
         body: JSON.stringify({
           textForGeneration: topic,
-          courseCode : cleanedPath
+          courseCode: cleanedPath,
         }),
       });
       if (response.ok) {
         const { quizId } = await response.json();
         console.log("Quiz created with ID:", quizId);
 
-     
         const quizQuestionsResponse = await fetch("/api/retrieveQuiz", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            quizId: quizId, 
+            quizId: quizId,
           }),
         });
 
@@ -136,9 +131,10 @@ export default function QuizPage( { quizId }: { quizId: string }) {
 
   const handleCheckAnswer = (questionIndex: number) => {
     const selectedAnswerIndex = selectedAnswers[questionIndex];
-  
+
     if (selectedAnswerIndex !== null && selectedAnswerIndex !== undefined) {
-      const selectedAnswerText = quizData[questionIndex].answers[selectedAnswerIndex];
+      const selectedAnswerText =
+        quizData[questionIndex].answers[selectedAnswerIndex];
       const correctAnswer = quizData[questionIndex].correct_answer;
       const correctAnswerText = String(correctAnswer);
       setAnswerFeedback((prevFeedback) => ({
@@ -147,18 +143,23 @@ export default function QuizPage( { quizId }: { quizId: string }) {
       }));
     }
   };
-  
 
-  const getAnswerBackgroundColor = (questionIndex: number, answerIndex: number) => {
+  const getAnswerBackgroundColor = (
+    questionIndex: number,
+    answerIndex: number
+  ) => {
     const selectedAnswer = selectedAnswers[questionIndex];
-    
+
     if (selectedAnswer !== null && selectedAnswer !== undefined) {
-      const selectedAnswerText = quizData[questionIndex].answers[selectedAnswer];
+      const selectedAnswerText =
+        quizData[questionIndex].answers[selectedAnswer];
       const correctAnswer = quizData[questionIndex].correct_answer;
       const correctAnswerText = String(correctAnswer);
-    
+
       if (answerFeedback[questionIndex] !== null) {
-        if (quizData[questionIndex].answers[answerIndex] === correctAnswerText) {
+        if (
+          quizData[questionIndex].answers[answerIndex] === correctAnswerText
+        ) {
           return "bg-green-500";
         }
         if (selectedAnswerText !== correctAnswerText) {
@@ -166,7 +167,7 @@ export default function QuizPage( { quizId }: { quizId: string }) {
         }
       }
     }
-  
+
     return "bg-white";
   };
 
@@ -237,7 +238,9 @@ export default function QuizPage( { quizId }: { quizId: string }) {
                   </CarouselItem>
                 ))
               ) : (
-                <p>No questions available</p>
+                <div className="ml-4">
+                  <p>No questions available</p>
+                </div>
               )}
             </CarouselContent>
             <CarouselPrevious />
