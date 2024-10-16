@@ -1,11 +1,9 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
-
+import { prisma } from '@/lib/prisma';
+import { auth } from '@clerk/nextjs/server'
 export async function GET(request: Request) {
   try {
-    const userId = new URL(request.url).searchParams.get('userId');
+    const {userId} = auth()
     if (!userId) {
       return NextResponse.json({ error: 'User ID is required' }, { status: 400 });
     }
